@@ -9,7 +9,6 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-
 /**
  *  Classe de mailable de Laravel
  */
@@ -29,7 +28,7 @@ class WelcomeMail extends Mailable
         $this->corpsMail = $corpsMail;
     }
 
- /**
+    /**
      * Get the message envelope.
      */
     public function envelope(): Envelope

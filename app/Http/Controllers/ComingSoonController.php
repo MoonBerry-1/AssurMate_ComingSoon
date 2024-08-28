@@ -26,8 +26,9 @@ class ComingSoonController extends Controller
             'email.email' => 'Entrez une adresse email valide',
             'email.unique' => 'Cette adresse email existe déjà',
         ]);
-        
-        
+
+        //condition a mettre en place, accepter seulement les .com, .ch .fr etc..
+
         // Enregistrer le client dans la base de données
         $user = User::create([
             'nom' => $request->nom,
@@ -37,14 +38,10 @@ class ComingSoonController extends Controller
 
         $destinataire = $user->email;
         
-        // Envoyer un e-mail de confirmation ou de notification
-        /* Mail::send('emails.sample', ['user' => $user], function ($message) use ($user) {
-            $message->to($user->email);
-            $message->subject('On vous tient au courant !');
-        }); */
-        $corpsMail = 'Bonjouuur mon amouuuur !';
+        $corpsMail = 'Saluuut  !'.  $user->prenom;
 
         Mail::to($destinataire)->send(new WelcomeMail($user->prenom, $user->nom, $corpsMail));
+
         // Rediriger ou retourner une réponse
         return redirect()->back()->with('success', 'Vous recevrez bientôt un email');
     }

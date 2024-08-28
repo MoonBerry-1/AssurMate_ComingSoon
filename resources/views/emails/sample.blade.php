@@ -6,6 +6,5 @@
 <body>
     <h1>Hello {{ $prenom }} {{ $nom }}!</h1>
     <p>{{ $corpsMail }}</p>
-    
 </body>
 </html>
