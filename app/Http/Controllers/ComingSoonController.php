@@ -17,7 +17,12 @@ class ComingSoonController extends Controller
         $request->validate([
             'nom' => 'required|string|max:50',
             'prenom' => 'required|string|max:50',
-            'email' => 'required|email|unique:users,email',
+            'email' => [
+                'required',
+                'email',
+                'unique:users,email',
+                'regex:/^[^@]+@[^@]+\.(fr|ch|com)$/'
+            ],
         ], 
         [
             'nom.required' => 'Entrez votre nom',
@@ -25,9 +30,8 @@ class ComingSoonController extends Controller
             'email.required' => 'Entrez une adresse email',
             'email.email' => 'Entrez une adresse email valide',
             'email.unique' => 'Cette adresse email existe déjà',
+            'email.regex' => 'L\'adresse email doit se terminer par .fr, .ch ou .com',
         ]);
-
-        //condition a mettre en place, accepter seulement les .com, .ch .fr etc..
 
         // Enregistrer le client dans la base de données
         $user = User::create([
