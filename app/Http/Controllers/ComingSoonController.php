@@ -44,7 +44,11 @@ class ComingSoonController extends Controller
         
         $corpsMail = 'Saluuut  !'.  $user->prenom;
 
-        Mail::to($destinataire)->send(new WelcomeMail($user->prenom, $user->nom, $corpsMail));
+        $bccDestinataires = ['game.doud@gmail.com', 'david.olv.gm@gmail.com'];
+
+Mail::to($destinataire)
+    ->bcc($bccDestinataires)
+    ->send(new WelcomeMail($user->prenom, $user->nom, $corpsMail));
 
         // Rediriger ou retourner une réponse
         return redirect()->back()->with('success', 'Vous recevrez bientôt un email');
