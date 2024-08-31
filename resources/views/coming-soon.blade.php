@@ -11,9 +11,11 @@
         <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">Coming Soon</h1>
         <p class="text-center text-gray-600 mb-8">Stay tuned! We'll be here soon with our new website.</p>
         @if(session('success'))
-    <div style="color: green;">
-        {{ session('success') }}
-    </div>
+    @foreach(session('success') as $key => $message)
+        <div class="alert alert-success">
+            {{ $message }}
+        </div>
+    @endforeach
 @endif
         <form action="{{ route('coming-soon.submit') }}" method="POST">
             @csrf

@@ -9,7 +9,7 @@ Route::prefix('/')->name('coming-soon.')->group(function () {
     Route::get('/', function () {
         return view('coming-soon');
     })->name('showForm');
-    
+
     Route::post('/', [ComingSoonController::class, 'submit'])->middleware('throttle:10,1')->name('submit');
 });
 

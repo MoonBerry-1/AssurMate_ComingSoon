@@ -2,29 +2,32 @@
 
 namespace App\Mail;
 
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
+
 
 /**
  *  Classe de mailable de Laravel
  */
-class WelcomeMail extends Mailable
+class WelcomeMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
     public $user;
+    public $corpsMail;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($prenom, $nom, $corpsMail)
+    public function __construct($user, $corpsMail)
     {
-        $this->nom = $nom;
-        $this->prenom = $prenom;
+        $this->user = $user;
         $this->corpsMail = $corpsMail;
     }
 
@@ -43,11 +46,14 @@ class WelcomeMail extends Mailable
      */
     public function content(): Content
     {
+
+        //$bccDestinataires = ['game.doud@gmail.com', 'david.olv.gm@gmail.com']; 
+        //->bcc($bccDestinataires)
         return new Content(
             view: 'emails.sample',
             with:[
-                'prenom' => $this->prenom,
-                'nom' => $this->nom,
+                'prenom' => $this->user->prenom,
+                'nom' => $this->user->nom,
                 'corpsMail' => $this->corpsMail,
             ],
         );
@@ -63,5 +69,13 @@ class WelcomeMail extends Mailable
         return [];
     }
 
+    public function failed(Exception $exception)
+    {
+        Log::error('Échec de l\'envoi de l\'email de bienvenue : ', [
+            'user_id' => $this->user->id,
+            'email' => $this->user->email,
+            'exception' => $exception->getMessage(),
+        ]);
+    }
     
 }
