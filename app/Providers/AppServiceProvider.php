@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Listeners\NotifyUserOfFailedJob;
+use Illuminate\Support\Facades\Event;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+
+
 
     /**
      * Bootstrap any application services.

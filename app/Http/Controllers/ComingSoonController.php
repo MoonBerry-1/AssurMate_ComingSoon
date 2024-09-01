@@ -39,7 +39,7 @@ class ComingSoonController extends Controller
         );
 
         //$bccDestinataires = ['omar.zghdd@gmail.com', 'fbr.mickael@gmail.com'];
-        
+        try {
             // Enregistrer le client dans la base de données
             $user = User::create([
                 'nom' => $request->nom,
@@ -49,30 +49,30 @@ class ComingSoonController extends Controller
 
             $destinataire = $user->email;
 
-            $corpsMail = 'Saluuut  !' .  $user->prenom;
             Mail::to($destinataire)
-                ->queue(new WelcomeMail($user, $corpsMail));
-            //->bcc($bccDestinataires)
+                ->queue(new WelcomeMail($user));
+            //->bcc($bccDestinataires) 
 
             // Appeler la méthode pour stocker les données du client dans un fichier CSV
-            $filePath = $this->storeClientData($user);
-
-            // Envoyer le fichier CSV au propriétaire de l'application
-            Mail::raw('Voici la liste des clients inscrits.', function ($message) use ($filePath) {
-                $message->to('david.oliveira.gm@gmail.com')
-                    ->subject('Liste des clients inscrits')
-                    ->attach($filePath);
-                //->bcc($bccDestinataires)
-            });
-            Log::info('Email de bienvenue envoyé et utilisateur enregistré dans le fichier CSV : ', ['email' => $destinataire]);
+            $this->storeClientData($user);
+            
             // Rediriger ou retourner une réponse
             $success = [
                 'envoiReussi' => 'Vous recevrez bientôt un email',
                 'destinataire' => 'Un email sera envoyé à l\'adresse suivante : ' . $destinataire,
             ];
+
             return redirect()->back()->with('success', $success);
+        } catch (\Exception $e) {
+            // Log the exception
+            Log::error('Erreur lors de l\'inscription : ' . $e->getMessage());
 
+            // Préparer le message d'erreur
+            $error = [
+                'emailError' => 'Une erreur est survenue lors de l\'inscription. Veuillez réessayer plus tard.',
+            ];
+
+            return redirect()->back()->withErrors($error);
         }
-
- 
+    }
 }

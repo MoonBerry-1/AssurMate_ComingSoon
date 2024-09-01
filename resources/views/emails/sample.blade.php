@@ -5,6 +5,6 @@
 </head>
 <body>
     <h1>Hello {{ $prenom }} {{ $nom }}!</h1>
-    <p>{{ $corpsMail }}</p>
+    <p>Merci pour votre inscription ! Vous recevrez bien de nos nouvelles !</p>
 </body>
 </html>

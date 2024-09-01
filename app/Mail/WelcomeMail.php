@@ -5,19 +5,20 @@ namespace App\Mail;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Queue\InteractsWithQueue;
 
 /**
  *  Classe de mailable de Laravel
  */
 class WelcomeMail extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Queueable, InteractsWithQueue, Dispatchable, SerializesModels;
 
     public $user;
     public $corpsMail;
@@ -25,10 +26,9 @@ class WelcomeMail extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $corpsMail)
+    public function __construct($user)
     {
         $this->user = $user;
-        $this->corpsMail = $corpsMail;
     }
 
     /**
@@ -46,7 +46,6 @@ class WelcomeMail extends Mailable implements ShouldQueue
      */
     public function content(): Content
     {
-
         //$bccDestinataires = ['game.doud@gmail.com', 'david.olv.gm@gmail.com']; 
         //->bcc($bccDestinataires)
         return new Content(
@@ -54,7 +53,6 @@ class WelcomeMail extends Mailable implements ShouldQueue
             with:[
                 'prenom' => $this->user->prenom,
                 'nom' => $this->user->nom,
-                'corpsMail' => $this->corpsMail,
             ],
         );
     }
