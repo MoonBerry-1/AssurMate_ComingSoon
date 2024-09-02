@@ -28,7 +28,7 @@
                 class="bg-white bg-opacity-80 backdrop-blur-lg py-4 shadow-md"
             >
                 <div
-                    class="container mx-auto flex justify-between items-center px-6"
+                    class="container mx-auto flex flex-wrap justify-between items-center px-6"
                 >
                     <div class="flex items-center space-x-4">
                         <img
@@ -41,8 +41,10 @@
                             >AssurMate</span
                         >
                     </div>
-                    <div>
-                        <span class="text-base md:text-lg text-gray-500 italic"
+                    <div
+                        class="w-full md:w-auto mt-2 md:mt-0 text-center md:text-right"
+                    >
+                        <span class="text-sm md:text-lg text-gray-500 italic"
                             >Simplifiez vos assurances, restez assuré.</span
                         >
                     </div>
@@ -63,10 +65,12 @@
                         Coming Soon
                     </h1>
                     <h2
-                        class="text-lg md:text-2xl font-medium text-gray-700 leading-tight"
+                        class="text-lg md:text-2xl font-medium text-gray-700 leading-tight flex flex-col md:flex-row md:space-x-2 justify-center"
                     >
-                        Reprenez le pouvoir sur vos assurances !
+                        <span>Reprenez le pouvoir sur vos</span>
+                        <span class="block md:inline">assurances !</span>
                     </h2>
+
                     <p
                         class="text-gray-500 text-base md:text-lg leading-relaxed"
                     >
@@ -79,7 +83,7 @@
                     <!-- Message de succès -->
                     @if(session('success'))
                     <div class="bg-green-600 text-white p-4 rounded-lg">
-                        {{ session('success')['destinataire'] }}
+                        {{ session("success")["destinataire"] }}
                     </div>
                     @endif
 
