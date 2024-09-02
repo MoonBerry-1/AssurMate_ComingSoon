@@ -34,7 +34,7 @@ class ComingSoonController extends Controller
                 'email.required' => 'Entrez une adresse email',
                 'email.email' => 'Entrez une adresse email valide',
                 'email.unique' => 'Cette adresse email existe déjà',
-                'email.regex' => 'L\'adresse email doit se terminer par .fr, .ch ou .com',
+                'email.regex' => 'L\'adresse email doit se terminer par .fr, .ch, .swiss ou .com',
             ]
         );
 
@@ -58,7 +58,6 @@ class ComingSoonController extends Controller
             
             // Rediriger ou retourner une réponse
             $success = [
-                'envoiReussi' => 'Vous recevrez bientôt un email',
                 'destinataire' => 'Un email sera envoyé à l\'adresse suivante : ' . $destinataire,
             ];
 
