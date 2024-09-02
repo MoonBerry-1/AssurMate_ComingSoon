@@ -38,7 +38,6 @@ class ComingSoonController extends Controller
             ]
         );
 
-        //$bccDestinataires = ['omar.zghdd@gmail.com', 'fbr.mickael@gmail.com'];
         try {
             // Enregistrer le client dans la base de données
             $user = User::create([
@@ -49,9 +48,7 @@ class ComingSoonController extends Controller
 
             $destinataire = $user->email;
 
-            Mail::to($destinataire)
-                ->queue(new WelcomeMail($user));
-            //->bcc($bccDestinataires)
+            Mail::to($destinataire)->send(new WelcomeMail($user));
 
             // Appeler la méthode pour stocker les données du client dans un fichier CSV
             $this->storeClientData($user);
