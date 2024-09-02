@@ -30,7 +30,7 @@ class ComingSoonController extends Controller
             ],
             [
                 'nom.required' => 'Entrez votre nom',
-                'prenom.required' => 'Entrez votre prenom',
+                'prenom.required' => 'Entrez votre prénom',
                 'email.required' => 'Entrez une adresse email',
                 'email.email' => 'Entrez une adresse email valide',
                 'email.unique' => 'Cette adresse email existe déjà',
@@ -51,11 +51,11 @@ class ComingSoonController extends Controller
 
             Mail::to($destinataire)
                 ->queue(new WelcomeMail($user));
-            //->bcc($bccDestinataires) 
+            //->bcc($bccDestinataires)
 
             // Appeler la méthode pour stocker les données du client dans un fichier CSV
             $this->storeClientData($user);
-            
+
             // Rediriger ou retourner une réponse
             $success = [
                 'destinataire' => 'Un email sera envoyé à l\'adresse suivante : ' . $destinataire,
