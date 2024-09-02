@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Mail\WelcomeMail;
 use App\Http\Controllers\ComingSoonController;
-use App\Http\Controllers\EmailController;
 
 Route::prefix('/')->name('coming-soon.')->group(function () {
     Route::get('/', function () {
