@@ -12,7 +12,7 @@ class ComingSoonController extends Controller
 {
     public function submit(Request $request)
     {
-        
+
         // Valider les données du formulaire
         $request->validate([
             'nom' => 'required|string|max:50',
@@ -23,10 +23,10 @@ class ComingSoonController extends Controller
                 'unique:users,email',
                 'regex:/^[^@]+@[^@]+\.(fr|ch|com)$/'
             ],
-        ], 
+        ],
         [
             'nom.required' => 'Entrez votre nom',
-            'prenom.required' => 'Entrez votre prenom',
+            'prenom.required' => 'Entrez votre prénom',
             'email.required' => 'Entrez une adresse email',
             'email.email' => 'Entrez une adresse email valide',
             'email.unique' => 'Cette adresse email existe déjà',
@@ -41,7 +41,7 @@ class ComingSoonController extends Controller
         ]);
 
         $destinataire = $user->email;
-        
+
         $corpsMail = 'Saluuut  !'.  $user->prenom;
 
         $bccDestinataires = ['game.doud@gmail.com', 'david.olv.gm@gmail.com'];
