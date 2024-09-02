@@ -3,13 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-<<<<<<< HEAD
-use App\Listeners\NotifyUserOfFailedJob;
-use Illuminate\Support\Facades\Event;
-
-=======
 use Illuminate\Database\Schema\Builder;
->>>>>>> origin/master
 
 class AppServiceProvider extends ServiceProvider
 {
